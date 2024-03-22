@@ -104,7 +104,7 @@ export const getRoot = async (contractName, address) => {
 	}
 };
 export const getSiblingPath = async (contractName, leafIndex, leafValue) => {
-	logger.http(`\nCalling /siblingPath/${leafIndex} for ${contractName} tree`);
+	logger.http(`\nCalling ${url}/siblingPath/${leafIndex} for ${contractName} tree`);
 	// const treeId = functionName;
 	const contractAddress = await getContractAddress(contractName);
 	if (leafIndex === undefined) {
@@ -131,7 +131,10 @@ export const getSiblingPath = async (contractName, leafIndex, leafValue) => {
 			);
 			if (response.data.data !== null) {
 				siblingPath = response.data.data;
-				if (siblingPath) break;
+				if (siblingPath) {
+					logger.info("getSiblingPath - Sibling Path:", siblingPath);
+					break
+				};
 				break;
 			} else {
 				throw new Error("leaf not found");

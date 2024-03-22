@@ -65,7 +65,7 @@ module.exports = {
     options: {
       defaultAccount: process.env.DEFAULT_ACCOUNT,
       defaultGas: 5221975,
-      defaultGasPrice: 0,
+      defaultGasPrice: 125000000000,
     },
   },
 };
