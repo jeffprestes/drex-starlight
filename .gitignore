@@ -4,5 +4,5 @@ build/
 built/
 node_modules/
 test-zapps/
-zapps/Escrow/docker-compose.yml
+zapps/Escrow/docker-compose.yaml
 
