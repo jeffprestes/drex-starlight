@@ -3,5 +3,7 @@ node_modules
 build/
 built/
 node_modules/
-proving-files/
 test-zapps/
+zapps/Escrow/docker-compose.yaml
+starlight-members-pubkeys/.env
+
