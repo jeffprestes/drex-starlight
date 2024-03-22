@@ -40,15 +40,10 @@ O primeiro passo consiste na geração das imagens dos componentes do Starlight.
 
 
 Construção dos componentes **Zapp** e **MongoDB**
-* git clone https://github.com/kaleido-io/starlight
+* git clone https://github.com/kaleido-io/starlight or https://github.com/jeffprestes/drex-starlight
 * git checkout refactor (**IMPORTANTE:** usar essa branch)
-* **ATENÇÃO**: o repositório da Kaleido contém instruções para uso do projeto. No entanto, pedimos que sigam as nossas instruções abaixo.
 * cd zapps/Escrow (recomendamos executar os comandos dentro desse diretório para facilitar a instalação)
-* Dentro desta pasta, copiar os seguintes arquivos que estão neste projeto: 
-  * [bn.js](bn.js)
-  * [config_timber.js](config_timber.js)
-  * [docker-compose.yaml](docker-compose.yaml)
-* Dentro da pasta zapps/Escrow/build/contracts, copiar o arquivo [EscrowShield.json](EscrowShield.json)
+  * Copiar arquivo docker-compose.example.yaml para docker-compose.yaml e seguir as instruções de configurações abaixo
 
 Build da imagem do **MongoDB**
 * docker build -t starlight-mongo -f Dockerfile.mongo
@@ -61,7 +56,7 @@ Build da imagem do **Zapp Escrow**
 
 Construção do componente **Timber**
 * git clone https://github.com/EYBlockchain/timber
-* git checkout starlight/testnet (**IMPORTANTE:** usar essa branch)
+* git checkout multiple-contracts (**IMPORTANTE:** usar essa branch)
 * cd merkle-tree
 
 Build da imagem do **Timber** que controla o merkle tree
@@ -81,6 +76,10 @@ Com as imagens dos componentes do Starlight devidamente criadas, o passo subsequ
   * cd zapps/Escrow
   * docker-compose up
   * verificar se todos os containers estão up:
+
+  ```bash
+  docker ps
+  ```
 
 |  IMAGE                    | STATUS      |  PORTS                   | NAMES               |
 | ------------------------- | ----------- | ------------------------ | ------------------- |
