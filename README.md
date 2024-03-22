@@ -75,6 +75,8 @@ Com as imagens dos componentes do Starlight devidamente criadas, o passo subsequ
 * Executar os comandos abaixo para subir os componentes:
   * cd zapps/Escrow
   * docker-compose up
+    * Para evitar que o Docker apague alguns arquivos, como as chaves para recebimento de depósitos, a partir 
+    da segunda vez que iniciar os containers execute: docker-compose up --no-recreate
   * verificar se todos os containers estão up:
 
   ```bash
