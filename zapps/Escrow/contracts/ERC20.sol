@@ -3,7 +3,6 @@
 pragma solidity ^0.8.0;
 
 import "./IERC20.sol";
-import 'truffle/console.sol';
 
 /**
  * @dev Implementation of the {IERC20} interface.
@@ -50,10 +49,10 @@ contract ERC20 is IERC20 {
      * All three of these values are immutable: they can only be set once during
      * construction.
      */
-    constructor (string memory name, string memory symbol) {
-        _name = name;
-        _symbol = symbol;
-        _decimals = 18;
+    constructor (string memory name_, string memory symbol_, uint8 decimals_) {
+        _name = name_;
+        _symbol = symbol_;
+        _decimals = decimals_;
     }
 
     /**
@@ -161,11 +160,8 @@ contract ERC20 is IERC20 {
      * `amount`.
      */
     function transferFrom(address sender, address recipient, uint256 amount) public virtual override returns (bool) {
-        console.log("calling transfer: sender=%o, recipient=%o, amount=%d", sender, recipient, amount);
         _transfer(sender, recipient, amount);
-        console.log("calling approve: sender=%o, msg.sender=%o, amount=%d", sender, msg.sender, amount);
         _approve(sender, msg.sender, _allowances[sender][msg.sender] -= amount);
-        console.log("returning true from transferFrom()", sender, msg.sender, amount);
         return true;
     }
 
