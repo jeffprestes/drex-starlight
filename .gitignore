@@ -6,4 +6,6 @@ node_modules/
 test-zapps/
 zapps/Escrow/docker-compose.yaml
 starlight-members-pubkeys/.env
+starlight-deployer/.env
+starlight-deployer/node_modules/
 
