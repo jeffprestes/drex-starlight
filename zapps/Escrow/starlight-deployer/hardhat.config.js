@@ -30,8 +30,7 @@ module.exports = {
     }
   },
   paths: {
-    sources: "../zapps/Escrow/contracts",
-    tests: "./test",
+    sources: "./contracts",
     cache: "./cache",
   },
   etherscan: {

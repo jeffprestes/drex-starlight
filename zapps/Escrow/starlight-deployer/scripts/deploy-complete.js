@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 const fs = require("fs");
 require("dotenv").config({ path: __dirname + "/.env" });
-const { AUTHORITY_ADDRESS, ADMIN_ADDRESS } = process.env;
+const { BANKA_ADDRESS, ADMIN_ADDRESS } = process.env;
 
 async function mint(erc20, to, amount) {
   console.log(`Minting Real Digital tokens to ${to} ...`);
@@ -13,34 +13,14 @@ async function mint(erc20, to, amount) {
   console.log(`Minting to ${to} has been successful`);
 }
 
-function saveMetadata (
-  parentDirectory,
-  hardhatArtifactPath,
-  contractDeployedAddress,
-  contractName
-  ) {
-  const compilationData = fs.readFileSync(parentDirectory + hardhatArtifactPath);
-  const abi = JSON.parse(compilationData).abi;
-  const tmpData = {
-    abi: abi,
-    address: contractDeployedAddress,
-  };
-
-  const deployedFileName = parentDirectory + "/build/contracts/" + contractName + "-saved.json";
-  console.log("Writing", contractName + ".json", " to ", deployedFileName, "...");
-  fs.writeFileSync(deployedFileName, JSON.stringify(tmpData));
-  console.log(deployedFileName, " written.");
-}
-
 async function main() {
-  const parentDirectory = __dirname.substring(0, __dirname.lastIndexOf("/"));
 
   console.log("Reading verification keys...");
   const vkInput = [];
   let vk = [];
   const functionNames = ["deposit", "transfer", "withdraw", "joinCommitments"];
   functionNames.forEach((name) => {
-    const vkJson = JSON.parse(fs.readFileSync(`./orchestration/common/db/${name}_vk.key`, "utf-8"));
+    const vkJson = JSON.parse(fs.readFileSync(`../orchestration/common/db/${name}_vk.key`, "utf-8"));
     if (vkJson.scheme) {
       vk = Object.values(vkJson).slice(2).flat(Infinity);
     } else {
@@ -57,7 +37,6 @@ async function main() {
   await verifier.waitForDeployment();
   const verifierAddress = await verifier.getAddress();
   console.log("Verifier deployed to:", verifierAddress);
-  saveMetadata(parentDirectory, "/build/contracts/verify/Verifier.sol/Verifier.json", verifierAddress, "Verifier");
 
   // const verifierAddress = "0x678a53ce7ad501D0becc55967e06D80A1aBD27d3";
 
@@ -89,11 +68,6 @@ async function main() {
   await escrowShield.waitForDeployment();
   const escrowShieldAddress = await escrowShield.getAddress();
   console.log("EscrowShield deployed to:", escrowShieldAddress);
-  saveMetadata( parentDirectory, 
-                "/build/contracts/EscrowShield.sol/EscrowShield.json", 
-                escrowShieldAddress, 
-                "EscrowShield"
-              );
   
   console.log("Approving Admin Real Digital tokens to Escrow contract ...");
   tx = await erc20.approve(escrowShieldAddress, 100000000);
