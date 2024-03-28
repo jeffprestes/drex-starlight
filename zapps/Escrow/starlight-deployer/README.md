@@ -10,5 +10,6 @@ Generated deployment metadata is saved at zapp/Escrow/build/contracts.
 
 ```shell
 chmod +x deploy.sh
+npm install
 ./deploy.sh sepolia
 ```
