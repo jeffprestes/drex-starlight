@@ -1,9 +1,13 @@
 node_modules
 *.DS_Store
-build/
 built/
 node_modules/
 test-zapps/
 zapps/Escrow/docker-compose.yaml
 starlight-members-pubkeys/.env
+zapps/Escrow/starlight-deployer/.env
+zapps/Escrow/starlight-deployer/node_modules/
+zapps/Escrow/starlight-deployer/artifacts/
+zapps/Escrow/starlight-deployer/cache/
+zapps/Escrow/starlight-deployer/contracts/
 

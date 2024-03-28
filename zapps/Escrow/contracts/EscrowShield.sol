@@ -5,7 +5,6 @@ pragma solidity ^0.8.0;
 import './verify/IVerifier.sol';
 import './merkle-tree/MerkleTree.sol';
 import './IERC20.sol';
-import 'truffle/console.sol';
 
 contract EscrowShield is MerkleTree {
     enum FunctionNames {
@@ -53,7 +52,6 @@ contract EscrowShield is MerkleTree {
         uint256 functionId,
         Inputs memory _inputs
     ) private {
-        console.log('verify - 1');
         uint[] memory customInputs = _inputs.customInputs;
 
         uint[] memory newNullifiers = _inputs.newNullifiers;
@@ -70,14 +68,12 @@ contract EscrowShield is MerkleTree {
             commitmentRoots[_inputs.commitmentRoot] == _inputs.commitmentRoot,
             'Input commitmentRoot does not exist.'
         );
-        console.log('verify - 2');
 
         uint encInputsLen = 0;
 
         for (uint i; i < _inputs.cipherText.length; i++) {
             encInputsLen += _inputs.cipherText[i].length + 2;
         }
-        console.log('verify - 3');
 
         uint256[] memory inputs = new uint256[](
             customInputs.length +
@@ -94,7 +90,6 @@ contract EscrowShield is MerkleTree {
             inputs[k++] = newCommitments[0];
             inputs[k++] = 1;
         }
-        console.log('verify - 4');
 
         if (functionId == uint(FunctionNames.transfer)) {
             uint k = 0;
@@ -109,7 +104,6 @@ contract EscrowShield is MerkleTree {
             inputs[k++] = _inputs.encKeys[0][0];
             inputs[k++] = _inputs.encKeys[0][1];
         }
-        console.log('verify - 5');
 
         if (functionId == uint(FunctionNames.withdraw)) {
             uint k = 0;
@@ -121,7 +115,6 @@ contract EscrowShield is MerkleTree {
             inputs[k++] = newCommitments[0];
             inputs[k++] = 1;
         }
-        console.log('verify - 6');
 
         if (functionId == uint(FunctionNames.joinCommitments)) {
 
@@ -132,20 +125,15 @@ contract EscrowShield is MerkleTree {
             inputs[k++] = newCommitments[0];
             inputs[k++] = 1;
         }
-        console.log('verify - 7');
 
         bool result = verifier.verify(proof, inputs, vks[functionId]);
 
         require(result, 'The proof has not been verified by the contract');
 
-        console.log('The proof has been successfully verified by the contract');
         if (newCommitments.length > 0) {
-            console.log('adding new commitments');
             latestRoot = insertLeaves(newCommitments);
             commitmentRoots[latestRoot] = latestRoot;
-        } else {
-            console.log('no new commitments to add');
-        }
+        } 
     }
 
     function joinCommitments(
@@ -187,11 +175,6 @@ contract EscrowShield is MerkleTree {
         uint256[] calldata newCommitments,
         uint256[] calldata proof
     ) public {
-        console.log(
-            'calling transferFrom: sender=%o, amount=%d',
-            msg.sender,
-            amount
-        );
         bool hasBalance = erc20.transferFrom(msg.sender, address(this), amount);
         require(hasBalance == true);
 
@@ -203,12 +186,10 @@ contract EscrowShield is MerkleTree {
 
         inputs.newCommitments = newCommitments;
 
-        console.log('Calling verify');
         verify(proof, uint(FunctionNames.deposit), inputs);
     }
 
     function transfer(Inputs calldata inputs, uint256[] calldata proof) public {
-        console.log('Calling verify');
         bytes32 proofHash = keccak256(abi.encodePacked(proof));
         if (lockedProofs[proofHash] != address(0)){
             require(lockedProofs[proofHash]==msg.sender, "Proof is locked");
