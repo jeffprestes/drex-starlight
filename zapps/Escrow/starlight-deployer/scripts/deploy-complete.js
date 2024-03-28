@@ -1,5 +1,6 @@
 const hre = require("hardhat");
 const fs = require("fs");
+const saveMetadata = require("./metadata").saveMetadata;
 require("dotenv").config({ path: __dirname + "/.env" });
 const { BANKA_ADDRESS, ADMIN_ADDRESS } = process.env;
 
@@ -30,14 +31,17 @@ async function main() {
   });
   console.log("Verification keys read.");
 
+  const chainId = (await hre.ethers.provider.getNetwork()).chainId;
+  console.log("Connected to network:", chainId);
+
+  let blockNumber = await hre.ethers.provider.getBlockNumber();
+
   console.log("Deploying Verifier...");
   // const Verifier = await hre.ethers.getContractFactory("Verifier", { libraries: { Pairing: pairingAddress } });
   const Verifier = await hre.ethers.getContractFactory("Verifier");
   const verifier = await Verifier.deploy();
   await verifier.waitForDeployment();
-  const verifierAddress = await verifier.getAddress();
-  console.log("Verifier deployed to:", verifierAddress);
-
+  const verifierAddress = await verifier.getAddress();  
   // const verifierAddress = "0x678a53ce7ad501D0becc55967e06D80A1aBD27d3";
 
   const { admin, bankA } = await hre.ethers.getSigners();
@@ -47,6 +51,8 @@ async function main() {
     symbol: "BRL",
     decimals: 2
   };
+
+  blockNumber = await hre.ethers.provider.getBlockNumber();
 
   console.log("Deploying ERC20 using this data: ", erc20Data, "...");
   const ERC20 = await hre.ethers.getContractFactory("contracts/ERC20.sol:ERC20");
@@ -58,16 +64,20 @@ async function main() {
   await erc20.waitForDeployment();
   const erc20Address = await erc20.getAddress();
   console.log("ERC20 deployed to:", erc20Address);
+  saveMetadata(erc20Address, "ERC20", chainId, blockNumber);
 
   await mint(erc20, ADMIN_ADDRESS, 100000000);
   await mint(erc20, BANKA_ADDRESS, 100000000);
 
+  blockNumber = await hre.ethers.provider.getBlockNumber();
+    
   console.log("Deploying EscrowShield ...");
   const EscrowShield = await hre.ethers.getContractFactory("EscrowShield");
   const escrowShield = await EscrowShield.deploy(erc20Address, verifierAddress, vkInput);
   await escrowShield.waitForDeployment();
   const escrowShieldAddress = await escrowShield.getAddress();
   console.log("EscrowShield deployed to:", escrowShieldAddress);
+  saveMetadata(escrowShieldAddress, "EscrowShield", chainId, blockNumber);
   
   console.log("Approving Admin Real Digital tokens to Escrow contract ...");
   tx = await erc20.approve(escrowShieldAddress, 100000000);
