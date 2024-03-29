@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run": "node index.js"
+    "run": "node query.js",
+    "register": "node register.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "ethers": "^6.11.1"
+    "ethers": "^6.11.1",
+    "general-number": "^1.0.1"
   }
 }
