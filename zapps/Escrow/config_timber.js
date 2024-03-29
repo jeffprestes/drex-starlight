@@ -98,9 +98,9 @@ module.exports = {
     rpcUrl: process.env.RPC_URL,
     options: {
       defaultAccount: '0x0',
-      defaultBlock: '0', // e.g. the genesis block our blockchain
-      defaultGas: 2000000,
-      defaultGasPrice: 20000000000,
+      defaultBlock: process.env.INICIAL_BLOCK_TO_LISTEN_EVENTS || 1, // e.g. the genesis block our blockchain
+      defaultGas: 29000000,
+      defaultGasPrice: process.env.DEFAULT_GAS_PRICE || 0,
       transactionBlockTimeout: 50,
       transactionConfirmationBlocks: 15,
       transactionPollingTimeout: 480,
