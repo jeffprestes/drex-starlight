@@ -56,7 +56,7 @@ function saveMetadata(
 
   console.log("Writing: ...");
   fs.writeFileSync(deployedFileName, JSON.stringify(deployedMetadata));
-  console.log(deployedFileName, " written with this content: ", JSON.stringify(deployedMetadata));
+  console.log(deployedFileNameTest, " written with this content: ", JSON.stringify(deployedMetadata));
 }
 
 module.exports = {
