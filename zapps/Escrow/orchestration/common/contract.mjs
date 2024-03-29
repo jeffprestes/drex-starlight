@@ -98,6 +98,10 @@ export async function registerKey(
     );
     publicKey = compressStarlightKey(publicKeyPoint);
   }
+  logger.info("registerKey - Saving BabyJubJub ECDH key to disk. They are:");
+  logger.info("registerKey - secretKey:", secretKey.integer);
+  logger.info("registerKey - publicKey:", publicKey.integer);
+
   if (registerWithContract) {
     const instance = await getContractInstance(contractName);
     const contractAddr = await getContractAddress(contractName);
@@ -112,10 +116,18 @@ export async function registerKey(
       data: txData,
       chainId: await web3.eth.net.getId(),
     };
+
+    console.log("registerKey - Transaction params to register public key in EscrowShield is:", 
+    txParams);
+
     const key = config.web3.key;
+
     const signed = await web3.eth.accounts.signTransaction(txParams, key);
+    console.log("registerKey - Transaction hash to register public key in EscrowShield is:", 
+    signed.transactionHash);
+
     const sendTxn = await web3.eth.sendSignedTransaction(signed.rawTransaction);
-    console.log("registerKey - sendTxn:", sendTxn);
+    console.log("registerKey - Transaction to register public key in EscrowShield was sent:", sendTxn);
     
   }
   const keyJson = {
