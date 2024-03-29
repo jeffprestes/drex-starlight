@@ -31,7 +31,7 @@ export class EncryptedDataEventListener {
 
     this.secretKey = generalise(secretKey);
     this.publicKey = generalise(publicKey);
-    console.log(`EncryptedDataEventListener - init - Secret Key: ${secretKey} \n Public Key: ${publicKey}`);
+    console.log(`('+++++++ EncryptedDataEventListener - init - Secret Key: ${secretKey} \n Public Key: ${publicKey}`);
 
     let stateVarId = 6;
     this.ethAddress = generalise(config.web3.options.defaultAccount);
