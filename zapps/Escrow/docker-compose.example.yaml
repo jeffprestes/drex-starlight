@@ -34,14 +34,16 @@ services:
       image: starlight-mongo
   timber:
       environment:
-          - RPC_URL=<<seus-dados-aqui>>
+          - RPC_URL=<<your-value-here>>
           - LOG_LEVEL=debug
           - DB_URL=mongodb://admin:admin@timber-mongo:27017
           - HASH_TYPE=mimc
           - UNIQUE_LEAVES=true
-          - ESCROW_SHIELD_ADDRESS=0xCB5cb66001572a668e62E561b21f7F88A34bcC2a
-          - DEPLOYER_HOST=<<seus-dados-aqui>>
-          - DEPLOYER_PORT=<<seus-dados-aqui>>
+          - ESCROW_SHIELD_ADDRESS=<<your-value-here>>
+          - DEPLOYER_HOST=<<your-value-here>>
+          - DEPLOYER_PORT=<<your-value-here>>
+          - DEFAULT_GAS_PRICE=<<your-value-here>>
+          - INICIAL_BLOCK_TO_LISTEN_EVENTS=<<your-value-here>>
       ports:
           - 3100:80
       volumes:
@@ -67,11 +69,12 @@ services:
           - ERC20_ADDRESS=0x39eCB99389433169fe175a4D2F9037D3F12c8699
           - ZOKRATES_URL=http://zokrates-sender
           - TIMBER_URL=http://timber-sender
-          - RPC_URL=<<seus-dados-aqui>>
-          - DEFAULT_ACCOUNT=<<seus-dados-aqui>>
-          - KEY=<<seus-dados-aqui>>
-          - ADMIN_ACCOUNT=<<seus-dados-aqui>>
-          - ADMIN_KEY=<<seus-dados-aqui>>
+          - DEFAULT_GAS_PRICE=<<your-value-here>>
+          - RPC_URL=<<your-value-here>>
+          - DEFAULT_ACCOUNT=<<your-value-here>>
+          - KEY=<<your-value-here>>
+          - ADMIN_ACCOUNT=<<your-value-here>>
+          - ADMIN_KEY=<<your-value-here>>
           - MONGO_URL=mongodb://admin:admin@zapp-mongo-sender:27017
       networks:
           - starlight
