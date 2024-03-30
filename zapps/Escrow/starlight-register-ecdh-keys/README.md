@@ -1,6 +1,6 @@
 # Check EscrowShield Member Registered Public Key
 
-This small script in index.js checks if an account public key is registered in the EscrowShield 
+This small plugin registers Zapp user's public key or query if it is registered in the EscrowShield 
 contract. This is necessary for transfers. The sender needs to know the receipient's public key 
 to encrypt the commitment. Starlight uses ECDH to it. The keys are based o Baby JubJub Elliptic Curve -
 https://docs.iden3.io/publications/pdfs/Baby-Jubjub.pdf
@@ -9,7 +9,18 @@ https://docs.iden3.io/publications/pdfs/Baby-Jubjub.pdf
 
 Adjust .env file and index.js with RPC Url data, EscrowShield contract, sender, receipient addresses. Then: 
 
+### To generate and register new Public Key
+
 ```shell
 npm install
-node index.js
+node register.js
+```
+
+### To query the Public Key for existing accounts
+
+Do not forget to edit query.js file and to set the accounts you want to query.
+
+```shell
+npm install
+node query.js
 ```
