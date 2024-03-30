@@ -65,7 +65,7 @@ module.exports = {
     options: {
       defaultAccount: process.env.DEFAULT_ACCOUNT,
       defaultBlock: process.env.INICIAL_BLOCK_TO_LISTEN_EVENTS || 1, // e.g. the genesis block our blockchain
-      defaultGas: 29000000,
+      defaultGas: process.env.DEFAULT_GAS || 29000000,
       defaultGasPrice: process.env.DEFAULT_GAS_PRICE || 0,
     },
   },

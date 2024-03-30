@@ -170,7 +170,7 @@ async function main() {
 
   const txParams = {
     gas: config.web3.options.defaultGas,
-    gasPrice: 7000000000,
+    gasPrice: config.web3.options.defaultGasPrice,
   };
   const tx = await escrowShieldContract.registerZKPPublicKey(publicKey.integer, txParams);
   console.log("registerKey - Transaction params to register public key in EscrowShield is:", 
