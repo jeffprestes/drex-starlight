@@ -42,6 +42,27 @@ docker compose up --no-recreate
 docker compose up --build
 ```
 
+## Start Docker Compose with previous images set
+
+```shell
+docker compose start
+```
+
+## Logs
+
+First gets the services names
+
+```shell
+docker-compose ps -a
+```
+
+Later inform the name of the service you want to see the logs or leave it blank to see all
+
+```shell
+docker-compose logs -f -n 1000 zapp 
+```
+
+
 ## Access Docker image
 
 ```shell
