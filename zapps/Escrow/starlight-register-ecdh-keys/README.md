@@ -7,7 +7,9 @@ https://docs.iden3.io/publications/pdfs/Baby-Jubjub.pdf
 
 ## Usage
 
-Adjust .env file and index.js with RPC Url data, EscrowShield contract, sender, receipient addresses. Then: 
+Check the ABI referencies in register.js and query.js.
+Also, adjust .env file with RPC Url data, EscrowShield contract, sender, receipient addresses parameters.
+Then:
 
 ### To generate and register new Public Key
 

@@ -64,6 +64,7 @@ services:
           - ./orchestration/deposit.mjs:/app/orchestration/deposit.mjs
           - ./orchestration/transfer.mjs:/app/orchestration/transfer.mjs
           - ./orchestration/common/contract.mjs:/app/orchestration/common/contract.mjs
+          - ./orchestration/common/db/:/app/orchestration/common/db/
       environment:
           - ESCROW_SHIELD_ADDRESS=0xCB5cb66001572a668e62E561b21f7F88A34bcC2a
           - ERC20_ADDRESS=0x39eCB99389433169fe175a4D2F9037D3F12c8699
