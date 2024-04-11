@@ -5,8 +5,8 @@ const erc20Abi = require('./ierc20.abi.json');
 
 // Infura provider
 const provider = new JsonRpcProvider(process.env.STARLIGHT_RPC_URL);
-const senderAddress = "0x652DaCC13E9DaE920E6DD5e8460bECa6b42b71cc";
-const receiverAddress = "0x80D2BAa2b24c44A450e375B834D3a07845250476";
+const senderAddress = "0x80D2BAa2b24c44A450e375B834D3a07845250476";
+const receiverAddress = "0x542996335014B6A89eEe03DA4C1F9ECaa4577433";
 const escrowShieldContractAddress = process.env.STARLIGHT_ESCROWSHIELD_ADDRESS
 const erc20ContractAddress = process.env.STARLIGHT_ERC20_ADDRESS;
 
