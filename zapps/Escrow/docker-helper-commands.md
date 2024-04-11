@@ -59,7 +59,7 @@ docker-compose ps -a
 Later inform the name of the service you want to see the logs or leave it blank to see all
 
 ```shell
-docker-compose logs -f -n 1000 zapp 
+docker-compose logs -f -n 10000 zapp 
 ```
 
 
