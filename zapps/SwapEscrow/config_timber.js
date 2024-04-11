@@ -44,7 +44,7 @@ module.exports = {
   // contracts to filter:
   contracts: {
     // contract name:
-    EscrowShield: {
+    SwapShield: {
       treeHeight: 32,
       events: {
         // filter for the following event names:
@@ -57,7 +57,7 @@ module.exports = {
           parameters: ['minLeafIndex', 'leafValues'],
         },
       },
-      address: process.env.ESCROW_SHIELD_ADDRESS,
+      address: process.env.SWAP_SHIELD_ADDRESS,
     },
   },
 

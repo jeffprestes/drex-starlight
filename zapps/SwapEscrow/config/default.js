@@ -1,10 +1,10 @@
 module.exports = {
   log_level: 'info',
   zokrates: {
-    url: 'http://zokrates:80',
+    url: process.env.ZOKRATES_URL || 'http://localhost:3002',
   },
   merkleTree: {
-    url: 'http://timber:80',
+    url: process.env.TIMBER_URL || 'http://localhost:3001',
   },
   // merkle-tree stuff:
   ZERO: '0',
@@ -53,40 +53,18 @@ module.exports = {
   contractOrigin: process.env.CONTRACT_LOCATION,
   // contracts to filter:
   contracts: {
-    // contract name:
     SwapShield: {
-      treeHeight: 32,
-      events: {
-        // filter for the following event names:
-        NewLeaf: {
-          // filter for these event parameters:
-          parameters: ['leafIndex', 'leafValue'],
-        },
-        NewLeaves: {
-          // filter for these event parameters:
-          parameters: ['minLeafIndex', 'leafValues'],
-        },
-      },
-    },
+      address: process.env.SWAP_SHIELD_ADDRESS,
+      abi: require('../build/contracts/SwapShield.json').abi,
+    }
   },
+
   // mongodb:
   // TODO: The latest Timber image has been edited... not sure how to create a 'user' for Timber anymore...
-  mongo: {
-    host: 'timber-mongo',
-    port: '27017',
-    databaseName: 'merkle_tree',
-    admin: 'admin',
-    adminPassword: 'admin',
-  },
-  MONGO_URL: 'mongodb://admin:admin@zapp-mongo:27017',
+  MONGO_URL: process.env.MONGO_URL || 'mongodb://admin:admin@localhost:27017',
   COMMITMENTS_DB: process.env.MONGO_NAME,
   COMMITMENTS_COLLECTION: 'commitments',
-  isLoggerEnabled: true,
   // web3:
-  deployer: {
-    host: process.env.BLOCKCHAIN_HOST,
-    port: process.env.BLOCKCHAIN_PORT,
-  },
   // web3:
   web3: {
     host: process.env.BLOCKCHAIN_HOST,
