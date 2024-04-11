@@ -63,6 +63,7 @@
     "@babel/register": "^7.13.8",
     "@babel/runtime": "^7.13.10",
     "@types/config": "^0.0.41",
+    "@openzeppelin/contracts": "4.9.0",
     "chai": "^4.3.6",
     "commander": "^7.0.0",
     "config": "^3.3.7",

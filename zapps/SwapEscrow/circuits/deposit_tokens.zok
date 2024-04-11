@@ -1,0 +1,41 @@
+from "./common/hashes/mimc/altbn254/mimc3.zok" import main as mimc3
+from "utils/pack/bool/nonStrictUnpack256.zok" import main as field_to_bool_256
+from "hashes/poseidon/poseidon.zok" import main as poseidon
+
+def main(\
+	public field amount,\
+	public field tokenId,\
+  private field msgSender,\
+	private field tokenOwners_tokenId_msg_0_newCommitment_owner_publicKey,\
+	private field tokenOwners_tokenId_msg_0_newCommitment_salt,\
+	public field tokenOwners_tokenId_msg_0_newCommitment_commitment\
+) -> (bool):
+
+        
+        // We need to hard-code the mappingId's of mappings into the circuit:
+        field tokenOwners_mappingId = 13
+
+        field tokenOwners_tokenId_msg_0_stateVarId_field = mimc3([tokenOwners_mappingId,  tokenId, msgSender])
+
+
+        field tokenOwners_tokenId_msg_1_stateVarId_field = mimc3([tokenOwners_mappingId,  tokenId, msgSender])
+
+
+        // prepare secret state 'tokenOwners_tokenId_msg_0' for commitment
+
+        field tokenOwners_tokenId_msg_0_newCommitment_value_field = amount
+
+        // tokenOwners_tokenId_msg_0_newCommitment_commitment - preimage check
+
+        field tokenOwners_tokenId_msg_0_newCommitment_commitment_check_field = poseidon([\
+          tokenOwners_tokenId_msg_0_stateVarId_field,\
+          tokenOwners_tokenId_msg_0_newCommitment_value_field,\
+          tokenOwners_tokenId_msg_0_newCommitment_owner_publicKey,\
+          tokenOwners_tokenId_msg_0_newCommitment_salt\
+        ])
+
+        assert(\
+          field_to_bool_256(tokenOwners_tokenId_msg_0_newCommitment_commitment)[8..256] == field_to_bool_256(tokenOwners_tokenId_msg_0_newCommitment_commitment_check_field)[8..256]\
+        )
+
+         return true
